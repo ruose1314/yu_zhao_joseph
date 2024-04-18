@@ -1,0 +1,31 @@
+name: Sync to Gitee
+
+on:
+  push:
+    branches:
+      - main  # Replace with your default branch if it's not 'main'
+
+jobs:
+  sync_to_gitee:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout GitHub repository
+      uses: actions/checkout@v2
+
+    - name: Setup SSH for Gitee Access
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.GITEE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan gitee.com >> ~/.ssh/known_hosts
+
+    - name: Push changes to Gitee
+      env:
+        GITEE_REPO: ruose1314/yu_zhao_joseph  # Replace with your Gitee repository
+        GIT_EMAIL: ruose1314@gmail.com  # Replace with your email
+        GIT_NAME: ruose1314  # Replace with your GitHub or Gitee username
+      run: |
+        git config --global user.email "${GIT_EMAIL}"
+        git config --global user.name "${GIT_NAME}"
+        git remote add gitee git@gitee.com:${GITEE_REPO}.git
+        git push gitee main  # Make sure the branch name matches your setup
