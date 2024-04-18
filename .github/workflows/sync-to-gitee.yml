@@ -21,7 +21,7 @@ jobs:
 
     - name: Push changes to Gitee
       env:
-        GITEE_REPO: ruose1314/yu_zhao_joseph  # Replace with your Gitee repository
+        GITEE_REPO: amdg313/yu_zhao_joseph  # Replace with your Gitee repository
         GIT_EMAIL: ruose1314@gmail.com  # Replace with your email
         GIT_NAME: ruose1314  # Replace with your GitHub or Gitee username
       run: |
